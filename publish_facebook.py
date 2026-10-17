@@ -111,11 +111,9 @@ def upload_to_facebook(video_path, title, description):
         return None
     if not os.path.exists(video_path):
         raise FileNotFoundError(f"Video file not found: {video_path}")
-    try:
-        return upload_video_resumable(video_path, title, description, page_id, access_token)
-    except Exception as e:
-        print(f"[facebook] Resumable upload failed ({e}), trying direct upload...")
-        return upload_video_direct(video_path, title, description, page_id, access_token)
+    # Enforce single-call direct multipart stream (exactly 1 API call to prevent rate limiting / blocks)
+    print(f"[facebook] Uploading via direct single-request stream (1 API call)...")
+    return upload_video_direct(video_path, title, description, page_id, access_token)
 
 def main():
     if len(sys.argv) < 2:
