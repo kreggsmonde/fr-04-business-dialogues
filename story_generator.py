@@ -79,15 +79,16 @@ def generate_dynamic_topic_ai(past_topics: list, ep_num: int = 1) -> dict:
 
     past_sample = past_topics[-30:] if len(past_topics) > 30 else past_topics
     prompt = (
-        "You are the creative executive producer for '" + config.CHANNEL_NAME + "' English podcast.\n"
-        "Channel Tagline: " + config.TAGLINE + "\n"
-        "Niche Style: " + config.NICHE_PROMPT + "\n\n"
-        "CRITICAL REQUIREMENT:\n"
-        "Previously published topics (DO NOT REPEAT OR CLOSELY DUPLICATE ANY OF THESE):\n"
-        + json.dumps(past_sample, indent=2) + "\n\n"
-        "Generate ONE brand new, highly engaging, practical English learning episode topic tailored specifically for this channel's style and audience.\n"
-        "Episode #" + str(ep_num) + ".\n\n"
-        "OUTPUT FORMAT: Return ONLY a valid JSON object matching this schema (no markdown, no other text):\n"
+        f"You are the creative executive producer for '{config.CHANNEL_NAME}' {config.LANGUAGE} podcast.\n"
+        f"Channel Tagline: {config.TAGLINE}\n"
+        f"Niche Style: {config.NICHE_PROMPT}\n"
+        f"Language Instruction: {config.SYSTEM_LANGUAGE_INSTRUCTION}\n"
+        f"CRITICAL: The topic title, focus overview, and act titles MUST be written ENTIRELY in natural {config.LANGUAGE}!\n\n"
+        f"Previously published topics (DO NOT REPEAT OR CLOSELY DUPLICATE ANY OF THESE):\n"
+        + json.dumps(past_sample, indent=2, ensure_ascii=False) + "\n\n"
+        f"Generate ONE brand new, highly engaging, practical {config.LANGUAGE} episode topic tailored specifically for this channel's style and audience in {config.LANGUAGE}.\n"
+        f"Episode #{ep_num}.\n\n"
+        f"OUTPUT FORMAT: Return ONLY a valid JSON object matching this schema (no markdown, no other text):\n"
         "{\n"
         '  "id": "ep_' + str(ep_num) + '",\n'
         '  "topic": "Catchy Full Episode Title",\n'
@@ -525,7 +526,7 @@ def generate_act_ai(act_idx: int, act_title: str, topic_title: str, focus: str, 
             f"Transition Guidance: {transition_note}\n\n"
             f"REQUIREMENTS:\n"
             f"- Exactly {target_turns} continuous spoken monologue turns exclusively by {config.HOST1_NAME}.\n"
-            f"- Each turn should be 12-24 words of gentle, insightful, natural English speech.\n"
+            f"- Each turn should be 12-24 words of gentle, insightful, natural French speech (French native immersion).\n"
             f"- Strictly return valid raw JSON array only:\n"
             f"[\n"
             f'  {{"speaker": "{config.HOST1_SPEAKER}", "name": "{config.HOST1_NAME}", "text": "..."}},\n'
@@ -534,7 +535,7 @@ def generate_act_ai(act_idx: int, act_title: str, topic_title: str, focus: str, 
         )
     else:
         prompt = (
-            f"Write an engaging dialogue for English podcast '{config.CHANNEL_NAME}'.\n"
+            f"Write an engaging dialogue entirely in French for podcast '{config.CHANNEL_NAME}'.\nLanguage instruction: {config.SYSTEM_LANGUAGE_INSTRUCTION}\n"
             f"Hosts: {config.HOST1_NAME} ({config.HOST1_SPEAKER}) and {config.HOST2_NAME} ({config.HOST2_SPEAKER}).\n"
             f"Niche: {config.NICHE_PROMPT}.\n"
             f"Topic: {topic_title}\n"
@@ -657,12 +658,12 @@ def generate_full_podcast_story(target_minutes: float = 20.0, topic: str = None,
     }
 
 def generate_metadata(topic: str, duration_sec: float, chapters: list, ep_num: int = 1) -> dict:
-    title = f"{topic} | {config.CHANNEL_NAME} Ep. {ep_num}"
+    title = f"{topic} | {config.CHANNEL_NAME} Ép. {ep_num}"
     lines = [
-        f"🎙️ Welcome to {config.CHANNEL_NAME} Episode #{ep_num}!",
-        f"Today we explore: {topic}.",
+        f"🎙️ Bienvenue sur {config.CHANNEL_NAME} - Épisode #{ep_num} !",
+        f"Aujourd'hui, nous explorons : {topic}.",
         "",
-        "🕒 CHAPTERS & TIMESTAMPS:"
+        "🕒 CHAPITRES ET HORODATAGES :"
     ]
     for ch in chapters:
         m = int(ch.get("start_time", 0) // 60)
@@ -671,13 +672,13 @@ def generate_metadata(topic: str, duration_sec: float, chapters: list, ep_num: i
 
     lines.extend([
         "",
-        "💡 Relax, listen, and immerse yourself in natural English conversation.",
-        "👉 Follow our page for daily English podcast episodes!",
-        f"#{config.CHANNEL_NAME.replace(' ', '')} #LearnEnglish #EnglishPodcast #EnglishConversation"
+        "💡 Détendez-vous, écoutez et plongez au cœur de conversations naturelles en français.",
+        "👉 Abonnez-vous à notre page pour de nouveaux épisodes quotidiens !",
+        f"#{config.CHANNEL_NAME.replace(' ', '')} #ApprendreLeFrancais #PodcastFrancais #FrancaisNaturel #ImmersionFrancaise"
     ])
 
     return {
         "title": title[:100],
         "description": "\n".join(lines),
-        "tags": ["learn english", "english podcast", config.CHANNEL_NAME.lower(), "english conversation", "english listening"]
+        "tags": ["apprendre le francais", "podcast francais", config.CHANNEL_NAME.lower(), "francais conversation", "ecoute francais"]
     }
