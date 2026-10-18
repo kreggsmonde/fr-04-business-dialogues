@@ -16,5 +16,14 @@
     "duration_min": 20.23,
     "video_file": "podcast_ep2_20261017_113824.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 3,
+    "topic": "L'Art de la Réclamation Stratégique : Obtenir Gain de Cause avec Tact et Efficacité",
+    "date": "2026-10-18T05:43:27.955934",
+    "duration_sec": 1243.44,
+    "duration_min": 20.72,
+    "video_file": "podcast_ep3_20261018_052541.mp4",
+    "platform": "Facebook"
   }
 ]
