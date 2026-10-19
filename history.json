@@ -25,5 +25,14 @@
     "duration_min": 20.72,
     "video_file": "podcast_ep3_20261018_052541.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 4,
+    "topic": "Le Fil d'Ariane Professionnel : Guider les Conversations Difficiles sans Perdre le Nord",
+    "date": "2026-10-19T06:03:49.576861",
+    "duration_sec": 1266.26,
+    "duration_min": 21.1,
+    "video_file": "podcast_ep4_20261019_054309.mp4",
+    "platform": "Facebook"
   }
 ]
