@@ -1,3 +1,4 @@
+from publish_youtube import publish_to_youtube
 import os, sys, argparse, asyncio, json
 from datetime import datetime
 
@@ -100,14 +101,27 @@ def run_auto_pipeline(target_minutes: float = 20.0, topic: str = None, dry_run: 
 
     # Step 5: Publish & Record
     meta = generate_metadata(story["topic"], total_dur, story["chapters"], ep_num=ep_num)
+    published_platforms = []
     if dry_run:
-        print("[DRY RUN] Skipping Facebook upload.")
+        print("[DRY RUN] Skipping social uploads.")
     else:
+        # 1. Facebook Publish (Every day)
         print(f"\n[Step 5/5] Uploading to Facebook Page '{config.CHANNEL_NAME}'...")
         try:
-            upload_to_facebook(video_path, meta["title"], meta["description"])
+            fb_res = upload_to_facebook(video_path, meta["title"], meta["description"])
+            if fb_res:
+                published_platforms.append("Facebook")
         except Exception as e:
             print(f"[Facebook Upload Error] {e}")
+
+        # 2. YouTube Publish (Tuesday, Thursday, Sunday only)
+        print(f"\n[Step 5/5] Checking YouTube publishing schedule for '{config.CHANNEL_NAME}'...")
+        try:
+            yt_res = publish_to_youtube(video_path, meta["title"], meta["description"], thumb_path=thumb_path, force=force_youtube)
+            if yt_res:
+                published_platforms.append("YouTube")
+        except Exception as e:
+            print(f"[YouTube Upload Error] {e}")
 
     # Append to all history registries
     record = {
@@ -117,7 +131,7 @@ def run_auto_pipeline(target_minutes: float = 20.0, topic: str = None, dry_run: 
         "duration_sec": round(total_dur, 2),
         "duration_min": round(total_dur / 60.0, 2),
         "video_file": os.path.basename(video_path),
-        "platform": "Facebook"
+        "platform": ", ".join(published_platforms) if published_platforms else "Facebook"
     }
     save_episode_history(record)
 
@@ -132,6 +146,7 @@ if __name__ == "__main__":
     parser.add_argument("--topic", type=str, default=None, help="Custom topic override")
     parser.add_argument("--dry-run", action="store_true", help="Skip social uploads")
     parser.add_argument("--preview", type=float, default=None, help="Render preview seconds only")
+    parser.add_argument("--force-youtube", action="store_true", help="Force YouTube publish regardless of scheduled day")
     args = parser.parse_args()
 
-    run_auto_pipeline(target_minutes=args.duration, topic=args.topic, dry_run=args.dry_run, preview_seconds=args.preview)
+    run_auto_pipeline(target_minutes=args.duration, topic=args.topic, dry_run=args.dry_run, preview_seconds=args.preview, force_youtube=args.force_youtube)
