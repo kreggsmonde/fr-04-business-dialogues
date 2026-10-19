@@ -109,8 +109,12 @@ def run_auto_pipeline(target_minutes: float = 20.0, topic: str = None, dry_run: 
         print(f"\n[Step 5/5] Uploading to Facebook Page '{config.CHANNEL_NAME}'...")
         try:
             fb_res = upload_to_facebook(video_path, meta["title"], meta["description"])
-            if fb_res:
+            if fb_res and (fb_res.get("id") or fb_res.get("success")):
+                vid_id = fb_res.get("id") or fb_res.get("data", {}).get("id")
+                print(f"[Facebook Upload Success] Published Video ID: {vid_id}")
                 published_platforms.append("Facebook")
+            else:
+                print(f"[Facebook Upload Error] Facebook returned unexpected response: {fb_res}")
         except Exception as e:
             print(f"[Facebook Upload Error] {e}")
 
@@ -131,9 +135,12 @@ def run_auto_pipeline(target_minutes: float = 20.0, topic: str = None, dry_run: 
         "duration_sec": round(total_dur, 2),
         "duration_min": round(total_dur / 60.0, 2),
         "video_file": os.path.basename(video_path),
-        "platform": ", ".join(published_platforms) if published_platforms else "Facebook"
+        "platform": ", ".join(published_platforms) if published_platforms else "None"
     }
     save_episode_history(record)
+
+    if not dry_run and not published_platforms:
+        raise RuntimeError("[Pipeline Error] Video rendered successfully but failed to publish to Facebook or YouTube!")
 
     print("\n" + "=" * 70)
     print(f"       PIPELINE RUN COMPLETE! Ep. #{ep_num} ({total_dur/60:.1f} mins)")

@@ -1,6 +1,8 @@
 """
 Facebook Page Video Publisher (Meta Graph API v20.0)
-Supports Chunked Resumable Upload for large videos with automatic fallback to direct upload.
+High-efficiency video upload with dynamic chunking:
+- Direct single-request stream for small clips (<= 25 MB)
+- High-efficiency Resumable Upload (32 MB chunks, ~5-8 API calls total) for full-length episodes
 """
 import os
 import sys
@@ -17,6 +19,7 @@ if sys.platform == 'win32':
 
 load_dotenv()
 GRAPH_API_VERSION = "v20.0"
+CHUNK_SIZE_BYTES = 32 * 1024 * 1024  # 32 MB chunks: only ~6-8 API calls for a full 200MB podcast episode
 
 def get_facebook_credentials():
     page_id = (os.getenv('FB_PAGE_ID') or os.getenv('FACEBOOK_PAGE_ID') or '').strip()
@@ -30,8 +33,9 @@ def get_facebook_credentials():
 
 def upload_video_resumable(video_path, title, description, page_id, access_token):
     file_size = os.path.getsize(video_path)
-    print(f"[facebook] Starting resumable upload for '{title}' ({file_size / (1024 * 1024):.2f} MB)...")
+    print(f"[facebook] Starting high-efficiency resumable upload for '{title}' ({file_size / (1024 * 1024):.2f} MB)...")
 
+    # Phase 1: Start
     start_url = f"https://graph.facebook.com/{GRAPH_API_VERSION}/{page_id}/videos"
     start_payload = {
         "upload_phase": "start",
@@ -40,15 +44,18 @@ def upload_video_resumable(video_path, title, description, page_id, access_token
     }
     resp = requests.post(start_url, data=start_payload, timeout=60)
     if resp.status_code != 200:
-        raise RuntimeError(f"START failed ({resp.status_code}): {resp.text}")
+        raise RuntimeError(f"START phase failed ({resp.status_code}): {resp.text}")
 
     start_data = resp.json()
-    upload_session_id = start_data["upload_session_id"]
+    upload_session_id = start_data.get("upload_session_id")
     video_id = start_data.get("video_id")
     start_offset = int(start_data.get("start_offset", 0))
     end_offset = int(start_data.get("end_offset", 0))
 
-    chunk_size = end_offset - start_offset if end_offset > start_offset else (4 * 1024 * 1024)
+    chunk_size = end_offset - start_offset if end_offset > start_offset else CHUNK_SIZE_BYTES
+    chunk_count = 0
+
+    # Phase 2: Transfer Chunks
     with open(video_path, "rb") as f:
         while start_offset < file_size:
             f.seek(start_offset)
@@ -64,18 +71,20 @@ def upload_video_resumable(video_path, title, description, page_id, access_token
                 "access_token": access_token
             }
             t_files = {"video_file_chunk": ("chunk.mp4", chunk_data, "video/mp4")}
-            t_resp = requests.post(transfer_url, data=t_data, files=t_files, timeout=120)
+            t_resp = requests.post(transfer_url, data=t_data, files=t_files, timeout=300)
             if t_resp.status_code != 200:
-                raise RuntimeError(f"TRANSFER failed at {start_offset} ({t_resp.status_code}): {t_resp.text}")
+                raise RuntimeError(f"TRANSFER failed at offset {start_offset} ({t_resp.status_code}): {t_resp.text}")
 
             res = t_resp.json()
+            chunk_count += 1
             new_start = int(res.get("start_offset", start_offset + len(chunk_data)))
-            new_end = int(res.get("end_offset", new_start + chunk_size))
-            chunk_size = new_end - new_start if new_end > new_start else chunk_size
+            new_end = int(res.get("end_offset", new_start + CHUNK_SIZE_BYTES))
+            chunk_size = new_end - new_start if new_end > new_start else CHUNK_SIZE_BYTES
             pct = min(100, int((new_start / file_size) * 100))
-            print(f"[facebook] Upload progress: {pct}%")
+            print(f"[facebook] Chunk #{chunk_count} uploaded ({pct}%)")
             start_offset = new_start
 
+    # Phase 3: Finish
     finish_url = f"https://graph.facebook.com/{GRAPH_API_VERSION}/{page_id}/videos"
     finish_payload = {
         "upload_phase": "finish",
@@ -86,15 +95,16 @@ def upload_video_resumable(video_path, title, description, page_id, access_token
     }
     f_resp = requests.post(finish_url, data=finish_payload, timeout=60)
     if f_resp.status_code != 200:
-        raise RuntimeError(f"FINISH failed ({f_resp.status_code}): {f_resp.text}")
+        raise RuntimeError(f"FINISH phase failed ({f_resp.status_code}): {f_resp.text}")
 
     result = f_resp.json()
     final_video_id = result.get("id") or video_id
-    print(f"[facebook] Video uploaded successfully! Video ID: {final_video_id}")
+    total_calls = chunk_count + 2
+    print(f"[facebook] Video uploaded successfully! Video ID: {final_video_id} (Total API calls: {total_calls})")
     return {"id": final_video_id, "success": True, "data": result}
 
 def upload_video_direct(video_path, title, description, page_id, access_token):
-    print(f"[facebook] Direct uploading: {title}")
+    print(f"[facebook] Direct single-request uploading: {title}")
     url = f"https://graph.facebook.com/{GRAPH_API_VERSION}/{page_id}/videos"
     payload = {"title": title, "description": description, "access_token": access_token}
     with open(video_path, "rb") as f:
@@ -102,7 +112,9 @@ def upload_video_direct(video_path, title, description, page_id, access_token):
         resp = requests.post(url, data=payload, files=files, timeout=600)
     if resp.status_code != 200:
         raise RuntimeError(f"Direct upload failed ({resp.status_code}): {resp.text}")
-    return resp.json()
+    data = resp.json()
+    print(f"[facebook] Direct video upload complete! Video ID: {data.get('id')}")
+    return data
 
 def upload_to_facebook(video_path, title, description):
     page_id, access_token = get_facebook_credentials()
@@ -111,9 +123,22 @@ def upload_to_facebook(video_path, title, description):
         return None
     if not os.path.exists(video_path):
         raise FileNotFoundError(f"Video file not found: {video_path}")
-    # Enforce single-call direct multipart stream (exactly 1 API call to prevent rate limiting / blocks)
-    print(f"[facebook] Uploading via direct single-request stream (1 API call)...")
-    return upload_video_direct(video_path, title, description, page_id, access_token)
+
+    file_size = os.path.getsize(video_path)
+    # Direct upload (1 API call) for small files <= 25 MB
+    if file_size <= 25 * 1024 * 1024:
+        print(f"[facebook] Video size is {file_size / (1024 * 1024):.1f} MB (<= 25 MB). Using direct upload (1 API call)...")
+        try:
+            return upload_video_direct(video_path, title, description, page_id, access_token)
+        except Exception as e:
+            if "413" in str(e):
+                print("[facebook] Gateway returned 413 Payload Too Large. Seamlessly falling back to resumable upload...")
+            else:
+                raise e
+
+    # Large episodes (> 25 MB): Resumable upload with 32MB chunks (only ~5-8 calls total, prevents 413 errors)
+    print(f"[facebook] Video size is {file_size / (1024 * 1024):.1f} MB. Using resumable upload with 32MB chunks...")
+    return upload_video_resumable(video_path, title, description, page_id, access_token)
 
 def main():
     if len(sys.argv) < 2:
@@ -121,8 +146,8 @@ def main():
         sys.exit(1)
 
     video_path = sys.argv[1]
-    title = "Learn English Naturally"
-    description = "Improve your English fluency and listening skills. Follow our page for daily lessons! ????"
+    title = "Podcast Episode"
+    description = "Daily episode. Follow our page for more lessons!"
 
     if len(sys.argv) > 2:
         arg2 = sys.argv[2]
