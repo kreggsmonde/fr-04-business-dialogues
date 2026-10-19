@@ -47,7 +47,7 @@ def save_episode_history(record: dict):
 
     print(f"[History] Recorded episode #{record['episode']} to published_videos.json, history.json, and history.js")
 
-def run_auto_pipeline(target_minutes: float = 20.0, topic: str = None, dry_run: bool = False, preview_seconds: float = None):
+def run_auto_pipeline(target_minutes: float = 20.0, topic: str = None, dry_run: bool = False, preview_seconds: float = None, force_youtube: bool = False):
     print("=" * 70)
     print(f"    [PODCAST] {config.CHANNEL_NAME} - AUTOMATED PIPELINE")
     print(f"    Target Duration: {target_minutes:.1f} minutes")
