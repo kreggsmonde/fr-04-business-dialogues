@@ -34,5 +34,14 @@
     "duration_min": 21.1,
     "video_file": "podcast_ep4_20261019_054309.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 5,
+    "topic": "L'Art de la Réponse Nuancée : Réagir avec Savoir-Faire aux Critiques Inattendues",
+    "date": "2026-10-20T06:00:37.920954",
+    "duration_sec": 1212.86,
+    "duration_min": 20.21,
+    "video_file": "podcast_ep5_20261020_054024.mp4",
+    "platform": "Facebook, YouTube"
   }
 ]
