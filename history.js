@@ -44,6 +44,15 @@ const PODCAST_HISTORY = [
     "duration_min": 20.21,
     "video_file": "podcast_ep5_20261020_054024.mp4",
     "platform": "Facebook, YouTube"
+  },
+  {
+    "episode": 6,
+    "topic": "L'Accord Tacite : Décrypter et Utiliser les Signaux Non-Verbaux en Négociation",
+    "date": "2026-10-21T06:04:28.429953",
+    "duration_sec": 1320.93,
+    "duration_min": 22.02,
+    "video_file": "podcast_ep6_20261021_054251.mp4",
+    "platform": "Facebook"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
