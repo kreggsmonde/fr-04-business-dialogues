@@ -1,12 +1,14 @@
 """
 Facebook Page Video Publisher (Meta Graph API v20.0)
-High-efficiency video upload with dynamic chunking:
+High-efficiency video upload with dynamic chunking and resilient retries:
 - Direct single-request stream for small clips (<= 25 MB)
-- High-efficiency Resumable Upload (32 MB chunks, ~5-8 API calls total) for full-length episodes
+- High-efficiency Resumable Upload (32 MB chunks) for full-length episodes
+- Automatic exponential backoff for transient errors (500, 502, 503, 504, 429, timeouts)
 """
 import os
 import sys
 import json
+import time
 import requests
 from pathlib import Path
 from dotenv import load_dotenv
@@ -19,7 +21,7 @@ if sys.platform == 'win32':
 
 load_dotenv()
 GRAPH_API_VERSION = "v20.0"
-CHUNK_SIZE_BYTES = 32 * 1024 * 1024  # 32 MB chunks: only ~6-8 API calls for a full 200MB podcast episode
+CHUNK_SIZE_BYTES = 32 * 1024 * 1024  # 32 MB chunks
 
 def get_facebook_credentials():
     page_id = (os.getenv('FB_PAGE_ID') or os.getenv('FACEBOOK_PAGE_ID') or '').strip()
@@ -30,6 +32,27 @@ def get_facebook_credentials():
         print("[facebook] Please configure them in your .env file or environment when ready to publish.")
         return None, None
     return page_id, access_token
+
+def make_request_with_retry(method, url, max_retries=4, backoff_factor=3, **kwargs):
+    """Executes HTTP requests with exponential backoff for transient errors (429, 500, 502, 503, 504)."""
+    for attempt in range(1, max_retries + 1):
+        try:
+            resp = requests.request(method, url, **kwargs)
+            # If server returns transient error, retry
+            if resp.status_code in [429, 500, 502, 503, 504] and attempt < max_retries:
+                wait_time = backoff_factor * (2 ** (attempt - 1))
+                print(f"[facebook] Server returned HTTP {resp.status_code}. Retrying in {wait_time}s (attempt {attempt}/{max_retries})...")
+                time.sleep(wait_time)
+                continue
+            return resp
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
+            if attempt < max_retries:
+                wait_time = backoff_factor * (2 ** (attempt - 1))
+                print(f"[facebook] Network error ({e}). Retrying in {wait_time}s (attempt {attempt}/{max_retries})...")
+                time.sleep(wait_time)
+            else:
+                raise e
+    return resp
 
 def upload_video_resumable(video_path, title, description, page_id, access_token):
     file_size = os.path.getsize(video_path)
@@ -42,7 +65,7 @@ def upload_video_resumable(video_path, title, description, page_id, access_token
         "file_size": file_size,
         "access_token": access_token
     }
-    resp = requests.post(start_url, data=start_payload, timeout=60)
+    resp = make_request_with_retry("POST", start_url, data=start_payload, timeout=60)
     if resp.status_code != 200:
         raise RuntimeError(f"START phase failed ({resp.status_code}): {resp.text}")
 
@@ -71,15 +94,19 @@ def upload_video_resumable(video_path, title, description, page_id, access_token
                 "access_token": access_token
             }
             t_files = {"video_file_chunk": ("chunk.mp4", chunk_data, "video/mp4")}
-            t_resp = requests.post(transfer_url, data=t_data, files=t_files, timeout=300)
+            t_resp = make_request_with_retry("POST", transfer_url, data=t_data, files=t_files, timeout=300)
             if t_resp.status_code != 200:
                 raise RuntimeError(f"TRANSFER failed at offset {start_offset} ({t_resp.status_code}): {t_resp.text}")
 
             res = t_resp.json()
             chunk_count += 1
             new_start = int(res.get("start_offset", start_offset + len(chunk_data)))
-            new_end = int(res.get("end_offset", new_start + CHUNK_SIZE_BYTES))
-            chunk_size = new_end - new_start if new_end > new_start else CHUNK_SIZE_BYTES
+            server_end = int(res.get("end_offset", 0))
+            if server_end > new_start:
+                chunk_size = server_end - new_start
+            else:
+                chunk_size = CHUNK_SIZE_BYTES
+
             pct = min(100, int((new_start / file_size) * 100))
             print(f"[facebook] Chunk #{chunk_count} uploaded ({pct}%)")
             start_offset = new_start
@@ -93,7 +120,7 @@ def upload_video_resumable(video_path, title, description, page_id, access_token
         "description": description,
         "access_token": access_token
     }
-    f_resp = requests.post(finish_url, data=finish_payload, timeout=60)
+    f_resp = make_request_with_retry("POST", finish_url, data=finish_payload, timeout=60)
     if f_resp.status_code != 200:
         raise RuntimeError(f"FINISH phase failed ({f_resp.status_code}): {f_resp.text}")
 
@@ -109,7 +136,7 @@ def upload_video_direct(video_path, title, description, page_id, access_token):
     payload = {"title": title, "description": description, "access_token": access_token}
     with open(video_path, "rb") as f:
         files = {"source": (os.path.basename(video_path), f, "video/mp4")}
-        resp = requests.post(url, data=payload, files=files, timeout=600)
+        resp = make_request_with_retry("POST", url, data=payload, files=files, timeout=600)
     if resp.status_code != 200:
         raise RuntimeError(f"Direct upload failed ({resp.status_code}): {resp.text}")
     data = resp.json()
@@ -136,8 +163,8 @@ def upload_to_facebook(video_path, title, description):
             else:
                 raise e
 
-    # Large episodes (> 25 MB): Resumable upload with 32MB chunks (only ~5-8 calls total, prevents 413 errors)
-    print(f"[facebook] Video size is {file_size / (1024 * 1024):.1f} MB. Using resumable upload with 32MB chunks...")
+    # Large episodes (> 25 MB): Resumable upload with 32MB chunks (resilient to 503/502/timeouts)
+    print(f"[facebook] Video size is {file_size / (1024 * 1024):.1f} MB. Using resumable upload...")
     return upload_video_resumable(video_path, title, description, page_id, access_token)
 
 def main():
