@@ -53,6 +53,15 @@ const PODCAST_HISTORY = [
     "duration_min": 22.02,
     "video_file": "podcast_ep6_20261021_054251.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 7,
+    "topic": "Le Pont des Compromis : Bâtir le Consensus dans les Désaccords Complexes",
+    "date": "2026-10-22T06:07:48.584007",
+    "duration_sec": 1275.34,
+    "duration_min": 21.26,
+    "video_file": "podcast_ep7_20261022_054533.mp4",
+    "platform": "Facebook, YouTube"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
