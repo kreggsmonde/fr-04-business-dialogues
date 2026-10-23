@@ -62,6 +62,15 @@ const PODCAST_HISTORY = [
     "duration_min": 21.26,
     "video_file": "podcast_ep7_20261022_054533.mp4",
     "platform": "Facebook, YouTube"
+  },
+  {
+    "episode": 8,
+    "topic": "Le Diligenter Discret : Anticiper et Gérer les Risques Cachés en Affaires Internationales",
+    "date": "2026-10-23T06:01:26.569218",
+    "duration_sec": 1284.79,
+    "duration_min": 21.41,
+    "video_file": "podcast_ep8_20261023_054410.mp4",
+    "platform": "Facebook"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
