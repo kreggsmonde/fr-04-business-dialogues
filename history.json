@@ -70,5 +70,14 @@
     "duration_min": 21.41,
     "video_file": "podcast_ep8_20261023_054410.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 9,
+    "topic": "Le Cadre Invisible : Maîtriser les Attentes Implicites pour une Collaboration Réussie",
+    "date": "2026-10-24T05:43:51.731852",
+    "duration_sec": 1187.26,
+    "duration_min": 19.79,
+    "video_file": "podcast_ep9_20261024_052311.mp4",
+    "platform": "Facebook"
   }
 ]
