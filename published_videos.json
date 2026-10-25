@@ -79,5 +79,14 @@
     "duration_min": 19.79,
     "video_file": "podcast_ep9_20261024_052311.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 10,
+    "topic": "La Symphonie de la Rétroaction : Diriger avec Grace et Précision",
+    "date": "2026-10-25T05:55:07.022465",
+    "duration_sec": 1351.51,
+    "duration_min": 22.53,
+    "video_file": "podcast_ep10_20261025_054030.mp4",
+    "platform": "Facebook, YouTube"
   }
 ]
