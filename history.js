@@ -89,6 +89,15 @@ const PODCAST_HISTORY = [
     "duration_min": 22.53,
     "video_file": "podcast_ep10_20261025_054030.mp4",
     "platform": "Facebook, YouTube"
+  },
+  {
+    "episode": 11,
+    "topic": "L'Art de la Délégation Stratégique : Amplifier votre Impact sans Diluer votre Contrôle",
+    "date": "2026-10-26T06:09:59.466742",
+    "duration_sec": 1351.78,
+    "duration_min": 22.53,
+    "video_file": "podcast_ep11_20261026_054644.mp4",
+    "platform": "Facebook"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
