@@ -98,6 +98,15 @@ const PODCAST_HISTORY = [
     "duration_min": 22.53,
     "video_file": "podcast_ep11_20261026_054644.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 12,
+    "topic": "La Danse des Altérations : Naviguer les Changements de Projet avec Agilité et Diplomatie",
+    "date": "2026-10-27T06:21:09.031743",
+    "duration_sec": 1242.05,
+    "duration_min": 20.7,
+    "video_file": "podcast_ep12_20261027_055903.mp4",
+    "platform": "Facebook, YouTube"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
