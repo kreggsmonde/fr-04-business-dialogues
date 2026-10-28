@@ -527,10 +527,11 @@ def generate_act_ai(act_idx: int, act_title: str, topic_title: str, focus: str, 
             f"REQUIREMENTS:\n"
             f"- Exactly {target_turns} continuous spoken monologue turns exclusively by {config.HOST1_NAME}.\n"
             f"- Each turn should be 12-24 words of gentle, insightful, natural French speech (French native immersion).\n"
+            f"- ALSO include an \"en\" field with a natural, fluent English translation of \"text\" (on-screen subtitles only, never spoken aloud).\n"
             f"- Strictly return valid raw JSON array only:\n"
             f"[\n"
-            f'  {{"speaker": "{config.HOST1_SPEAKER}", "name": "{config.HOST1_NAME}", "text": "..."}},\n'
-            f'  {{"speaker": "{config.HOST1_SPEAKER}", "name": "{config.HOST1_NAME}", "text": "..."}}\n'
+            f'  {{"speaker": "{config.HOST1_SPEAKER}", "name": "{config.HOST1_NAME}", "text": "...", "en": "..."}},\n'
+            f'  {{"speaker": "{config.HOST1_SPEAKER}", "name": "{config.HOST1_NAME}", "text": "...", "en": "..."}}\n'
             f"]"
         )
     else:
@@ -546,10 +547,11 @@ def generate_act_ai(act_idx: int, act_title: str, topic_title: str, focus: str, 
             f"- Exactly {target_turns} dialogue turns alternating {config.HOST1_NAME} and {config.HOST2_NAME}.\n"
             f"- Keep each turn natural, clear, and conversational (12-22 words per turn).\n"
             f"- Warm, insightful, friendly chemistry between hosts.\n"
+            f"- ALSO include an \"en\" field with a natural, fluent English translation of \"text\" (on-screen subtitles only, never spoken aloud).\n"
             f"- Strictly return valid raw JSON array only:\n"
             f"[\n"
-            f'  {{"speaker": "{config.HOST1_SPEAKER}", "name": "{config.HOST1_NAME}", "text": "..."}},\n'
-            f'  {{"speaker": "{config.HOST2_SPEAKER}", "name": "{config.HOST2_NAME}", "text": "..."}}\n'
+            f'  {{"speaker": "{config.HOST1_SPEAKER}", "name": "{config.HOST1_NAME}", "text": "...", "en": "..."}},\n'
+            f'  {{"speaker": "{config.HOST2_SPEAKER}", "name": "{config.HOST2_NAME}", "text": "...", "en": "..."}}\n'
             f"]"
         )
 
@@ -588,7 +590,7 @@ def generate_act_ai(act_idx: int, act_title: str, topic_title: str, focus: str, 
                     else:
                         spk = p.get("speaker", config.HOST1_SPEAKER)
                         nm = p.get("name", config.HOST1_NAME)
-                    result_turns.append({"speaker": spk, "name": nm, "text": txt})
+                    result_turns.append({"speaker": spk, "name": nm, "text": txt, "en": p.get("en", "").strip()})
 
                 # Sanitize repetitive greetings in Acts 2-5
                 if act_idx > 0 and result_turns:

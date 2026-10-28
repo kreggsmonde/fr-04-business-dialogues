@@ -155,6 +155,7 @@ async def generate_podcast_audio(dialogue: list) -> tuple:
             res["speaker"] = spk
             res["name"] = turn.get("name", "Host")
             res["turn_text"] = text
+            res["en"] = turn.get("en", "")
             if (idx + 1) % 25 == 0 or idx == len(dialogue) - 1:
                 print(f"  [TTS Progress] Synthesized {idx + 1}/{len(dialogue)} turns")
             await asyncio.sleep(0.4)  # Inter-turn rate-limit buffer
@@ -182,6 +183,7 @@ async def generate_podcast_audio(dialogue: list) -> tuple:
         )
         for c in turn_chunks:
             c["turn_idx"] = idx
+            c["en"] = turn_res.get("en", "")
             all_chunks.append(c)
 
         master_audio += turn_res["audio_segment"]
