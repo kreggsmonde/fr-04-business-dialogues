@@ -244,6 +244,20 @@ def render_podcast_video(image_path: str, audio_path: str, subtitle_chunks: list
                 en_sy += en_line_h
             pill_bot = en_sy - en_line_h + en_font_size + 16
 
+
+        # Bilingual safety: guarantee a clear gap above the equalizer plate.
+        # If the grown pill would touch the plate, shift the whole pill up.
+        if en_draw_lines:
+            vis_plate_top = config.VIS_BASE_Y - (config.VIS_MAX_HEIGHT + 22) // 2
+            max_pill_bot = vis_plate_top - 30
+            if pill_bot > max_pill_bot:
+                shift = pill_bot - max_pill_bot
+                pill_top -= shift
+                pill_bot = max_pill_bot
+                for ld in lines:
+                    ld["sy"] -= shift
+                for d in en_draw_lines:
+                    d["sy"] -= shift
         processed_chunks.append({
             "start": c["start"],
             "end": c["end"],
