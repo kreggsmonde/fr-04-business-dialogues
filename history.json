@@ -106,5 +106,14 @@
     "duration_min": 20.7,
     "video_file": "podcast_ep12_20261027_055903.mp4",
     "platform": "Facebook, YouTube"
+  },
+  {
+    "episode": 13,
+    "topic": "L'Art de la Déclinaison Élégante : Dire Non avec Impact et Préserver les Relations",
+    "date": "2026-10-29T07:05:20.692524",
+    "duration_sec": 1178.76,
+    "duration_min": 19.65,
+    "video_file": "podcast_ep13_20261029_064529.mp4",
+    "platform": "Facebook, YouTube"
   }
 ]
