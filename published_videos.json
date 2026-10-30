@@ -115,5 +115,14 @@
     "duration_min": 19.65,
     "video_file": "podcast_ep13_20261029_064529.mp4",
     "platform": "Facebook, YouTube"
+  },
+  {
+    "episode": 14,
+    "topic": "L'Art de l'Influence Subtile : Orienter les Décisions sans Exercer de Pression Directe",
+    "date": "2026-10-30T07:06:05.967733",
+    "duration_sec": 1189.97,
+    "duration_min": 19.83,
+    "video_file": "podcast_ep14_20261030_064751.mp4",
+    "platform": "Facebook"
   }
 ]
