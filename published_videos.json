@@ -124,5 +124,14 @@
     "duration_min": 19.83,
     "video_file": "podcast_ep14_20261030_064751.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 15,
+    "topic": "L'Art de la Proposition Audacieuse : Transformer les Idées en Actions Concrètes en Français",
+    "date": "2026-10-31T06:54:24.045771",
+    "duration_sec": 1158.36,
+    "duration_min": 19.31,
+    "video_file": "podcast_ep15_20261031_063719.mp4",
+    "platform": "Facebook"
   }
 ]
