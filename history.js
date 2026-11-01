@@ -134,6 +134,15 @@ const PODCAST_HISTORY = [
     "duration_min": 19.31,
     "video_file": "podcast_ep15_20261031_063719.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 16,
+    "topic": "Le Langage de l'Équité : Répartir les Tâches et les Responsabilités avec Justice et Transparence",
+    "date": "2026-11-01T07:20:44.006062",
+    "duration_sec": 1169.18,
+    "duration_min": 19.49,
+    "video_file": "podcast_ep16_20261101_070745.mp4",
+    "platform": "Facebook, YouTube"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
