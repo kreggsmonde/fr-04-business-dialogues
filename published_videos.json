@@ -142,5 +142,14 @@
     "duration_min": 19.49,
     "video_file": "podcast_ep16_20261101_070745.mp4",
     "platform": "Facebook, YouTube"
+  },
+  {
+    "episode": 17,
+    "topic": "L'Art de la Convergence : Transformer les Opinions Divergentes en Stratégies Unifiées",
+    "date": "2026-11-02T07:26:37.833429",
+    "duration_sec": 1113.36,
+    "duration_min": 18.56,
+    "video_file": "podcast_ep17_20261102_071249.mp4",
+    "platform": "Facebook"
   }
 ]
