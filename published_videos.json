@@ -151,5 +151,14 @@
     "duration_min": 18.56,
     "video_file": "podcast_ep17_20261102_071249.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 18,
+    "topic": "L'Art de la Réassurance Stratégique : Instaurer la Confiance dans les Moments de Crise",
+    "date": "2026-11-03T07:48:50.684377",
+    "duration_sec": 1198.7,
+    "duration_min": 19.98,
+    "video_file": "podcast_ep18_20261103_073248.mp4",
+    "platform": "Facebook, YouTube"
   }
 ]
