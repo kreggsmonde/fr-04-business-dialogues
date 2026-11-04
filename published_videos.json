@@ -160,5 +160,14 @@
     "duration_min": 19.98,
     "video_file": "podcast_ep18_20261103_073248.mp4",
     "platform": "Facebook, YouTube"
+  },
+  {
+    "episode": 19,
+    "topic": "L'Art de la Micro-Négociation : Gagner du Terrain sur les Petits Détails Qui Font la Différence",
+    "date": "2026-11-04T07:31:05.898181",
+    "duration_sec": 1219.87,
+    "duration_min": 20.33,
+    "video_file": "podcast_ep19_20261104_071525.mp4",
+    "platform": "Facebook"
   }
 ]
