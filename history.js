@@ -170,6 +170,15 @@ const PODCAST_HISTORY = [
     "duration_min": 20.33,
     "video_file": "podcast_ep19_20261104_071525.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 20,
+    "topic": "L'Art de l'Écho Stratégique : Amplifier son Message sans Écraser l'Autre",
+    "date": "2026-11-05T08:01:42.144612",
+    "duration_sec": 1235.64,
+    "duration_min": 20.59,
+    "video_file": "podcast_ep20_20261105_074236.mp4",
+    "platform": "Facebook, YouTube"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
