@@ -179,6 +179,15 @@ const PODCAST_HISTORY = [
     "duration_min": 20.59,
     "video_file": "podcast_ep20_20261105_074236.mp4",
     "platform": "Facebook, YouTube"
+  },
+  {
+    "episode": 21,
+    "topic": "L'Art du Recadrage Positif : Transformer les Obstacles en Opportunités Stratégiques",
+    "date": "2026-11-06T07:57:40.932001",
+    "duration_sec": 1207.22,
+    "duration_min": 20.12,
+    "video_file": "podcast_ep21_20261106_073901.mp4",
+    "platform": "Facebook"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
