@@ -187,5 +187,14 @@
     "duration_min": 20.12,
     "video_file": "podcast_ep21_20261106_073901.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 22,
+    "topic": "L'Art de la Clarté Radicale : Communiquer ses Attentes sans Blesser",
+    "date": "2026-11-07T07:05:26.396112",
+    "duration_sec": 1153.97,
+    "duration_min": 19.23,
+    "video_file": "podcast_ep22_20261107_065015.mp4",
+    "platform": "Facebook"
   }
 ]
