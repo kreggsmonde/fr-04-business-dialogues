@@ -197,6 +197,15 @@ const PODCAST_HISTORY = [
     "duration_min": 19.23,
     "video_file": "podcast_ep22_20261107_065015.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 23,
+    "topic": "L'Art de l'Équilibre Subtil : Négocier sans Compromettre l'Intégrité",
+    "date": "2026-11-08T07:13:34.386992",
+    "duration_sec": 1168.15,
+    "duration_min": 19.47,
+    "video_file": "podcast_ep23_20261108_065525.mp4",
+    "platform": "Facebook, YouTube"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
