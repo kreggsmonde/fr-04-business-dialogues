@@ -206,6 +206,15 @@ const PODCAST_HISTORY = [
     "duration_min": 19.47,
     "video_file": "podcast_ep23_20261108_065525.mp4",
     "platform": "Facebook, YouTube"
+  },
+  {
+    "episode": 24,
+    "topic": "L'Art de l'Anticipation Stratégique : Déjouer les Obstacles Avant Qu'ils n'Apparaissent",
+    "date": "2026-11-09T07:54:28.216419",
+    "duration_sec": 1190.88,
+    "duration_min": 19.85,
+    "video_file": "podcast_ep24_20261109_073915.mp4",
+    "platform": "Facebook"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
