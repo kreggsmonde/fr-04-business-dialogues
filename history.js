@@ -215,6 +215,15 @@ const PODCAST_HISTORY = [
     "duration_min": 19.85,
     "video_file": "podcast_ep24_20261109_073915.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 25,
+    "topic": "L'Art de l'Écoute Active Stratégique : Décoder les Silences et Révéler les Vérités Cachées",
+    "date": "2026-11-10T08:18:14.972277",
+    "duration_sec": 1149.45,
+    "duration_min": 19.16,
+    "video_file": "podcast_ep25_20261110_075938.mp4",
+    "platform": "Facebook, YouTube"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
