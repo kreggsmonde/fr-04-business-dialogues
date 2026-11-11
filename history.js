@@ -224,6 +224,15 @@ const PODCAST_HISTORY = [
     "duration_min": 19.16,
     "video_file": "podcast_ep25_20261110_075938.mp4",
     "platform": "Facebook, YouTube"
+  },
+  {
+    "episode": 26,
+    "topic": "L'Art de l'Évaluation Nuancée : Décrypter les Performances au-delà des Chiffres",
+    "date": "2026-11-11T07:44:24.443292",
+    "duration_sec": 1140.45,
+    "duration_min": 19.01,
+    "video_file": "podcast_ep26_20261111_073029.mp4",
+    "platform": "Facebook"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
