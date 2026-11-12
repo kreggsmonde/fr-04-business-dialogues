@@ -233,6 +233,15 @@ const PODCAST_HISTORY = [
     "duration_min": 19.01,
     "video_file": "podcast_ep26_20261111_073029.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 27,
+    "topic": "L'Art du Verrouillage Stratégique : Sceller les Accords avec une Autorité Infaillible",
+    "date": "2026-11-12T08:09:51.582988",
+    "duration_sec": 1177.3,
+    "duration_min": 19.62,
+    "video_file": "podcast_ep27_20261112_075710.mp4",
+    "platform": "Facebook, YouTube"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
