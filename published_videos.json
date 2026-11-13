@@ -241,5 +241,14 @@
     "duration_min": 19.62,
     "video_file": "podcast_ep27_20261112_075710.mp4",
     "platform": "Facebook, YouTube"
+  },
+  {
+    "episode": 28,
+    "topic": "L'Art de la Réplique Préparée : Anticiper et Maîtriser les Objections Inattendues en Français Exécutif",
+    "date": "2026-11-13T07:50:02.917435",
+    "duration_sec": 1134.65,
+    "duration_min": 18.91,
+    "video_file": "podcast_ep28_20261113_073605.mp4",
+    "platform": "Facebook"
   }
 ]
