@@ -251,6 +251,15 @@ const PODCAST_HISTORY = [
     "duration_min": 18.91,
     "video_file": "podcast_ep28_20261113_073605.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 29,
+    "topic": "L'Art de la Diplomatie Injectée : Naviguer les Conflits Latents avec Assurance et Précision",
+    "date": "2026-11-14T07:38:46.687712",
+    "duration_sec": 1189.15,
+    "duration_min": 19.82,
+    "video_file": "podcast_ep29_20261114_072032.mp4",
+    "platform": "Facebook"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
