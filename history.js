@@ -260,6 +260,15 @@ const PODCAST_HISTORY = [
     "duration_min": 19.82,
     "video_file": "podcast_ep29_20261114_072032.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 30,
+    "topic": "L'Art de la Réception Constructive : Transformer le Feedback Délicat en Avantage Stratégique",
+    "date": "2026-11-15T07:50:42.204275",
+    "duration_sec": 1171.65,
+    "duration_min": 19.53,
+    "video_file": "podcast_ep30_20261115_073237.mp4",
+    "platform": "Facebook"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
