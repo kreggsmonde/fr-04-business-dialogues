@@ -269,6 +269,15 @@ const PODCAST_HISTORY = [
     "duration_min": 19.53,
     "video_file": "podcast_ep30_20261115_073237.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 31,
+    "topic": "L'Art de l'Escalade Stratégique : Progresser Efficacement dans les Hierarchies Complexes",
+    "date": "2026-11-16T07:54:04.569262",
+    "duration_sec": 1194.07,
+    "duration_min": 19.9,
+    "video_file": "podcast_ep31_20261116_073918.mp4",
+    "platform": "Facebook"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
