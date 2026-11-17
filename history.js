@@ -278,6 +278,15 @@ const PODCAST_HISTORY = [
     "duration_min": 19.9,
     "video_file": "podcast_ep31_20261116_073918.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 32,
+    "topic": "L'Art de l'Alignement Stratégique : Synchroniser les Visions pour une Action Collective Imparable",
+    "date": "2026-11-17T09:05:10.312531",
+    "duration_sec": 1228.85,
+    "duration_min": 20.48,
+    "video_file": "podcast_ep32_20261117_084842.mp4",
+    "platform": "Facebook, YouTube"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
