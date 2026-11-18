@@ -287,6 +287,15 @@ const PODCAST_HISTORY = [
     "duration_min": 20.48,
     "video_file": "podcast_ep32_20261117_084842.mp4",
     "platform": "Facebook, YouTube"
+  },
+  {
+    "episode": 33,
+    "topic": "The High-Stakes Negotiation Playbook",
+    "date": "2026-11-18T08:31:45.892013",
+    "duration_sec": 1178.13,
+    "duration_min": 19.64,
+    "video_file": "podcast_ep33_20261118_081259.mp4",
+    "platform": "Facebook"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
