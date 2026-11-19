@@ -296,6 +296,15 @@ const PODCAST_HISTORY = [
     "duration_min": 19.64,
     "video_file": "podcast_ep33_20261118_081259.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 34,
+    "topic": "L'Art du Contournement Stratégique : Naviguer les Blocages Organisationnels avec Assurance",
+    "date": "2026-11-19T08:39:11.387698",
+    "duration_sec": 1192.92,
+    "duration_min": 19.88,
+    "video_file": "podcast_ep34_20261119_082326.mp4",
+    "platform": "Facebook, YouTube"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
