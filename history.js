@@ -305,6 +305,15 @@ const PODCAST_HISTORY = [
     "duration_min": 19.88,
     "video_file": "podcast_ep34_20261119_082326.mp4",
     "platform": "Facebook, YouTube"
+  },
+  {
+    "episode": 35,
+    "topic": "L'Art de la Persuasion Douce : Influencer sans jamais Contraindre",
+    "date": "2026-11-20T08:14:48.473151",
+    "duration_sec": 1096.75,
+    "duration_min": 18.28,
+    "video_file": "podcast_ep35_20261120_080358.mp4",
+    "platform": "Facebook"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
