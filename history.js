@@ -314,6 +314,15 @@ const PODCAST_HISTORY = [
     "duration_min": 18.28,
     "video_file": "podcast_ep35_20261120_080358.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 36,
+    "topic": "Le Fil Invisible : Tisser des Connexions Stratégiques pour une Influence Durable",
+    "date": "2026-11-21T08:19:20.360151",
+    "duration_sec": 1236.65,
+    "duration_min": 20.61,
+    "video_file": "podcast_ep36_20261121_075828.mp4",
+    "platform": "Facebook"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
