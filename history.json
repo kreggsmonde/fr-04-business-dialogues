@@ -322,5 +322,14 @@
     "duration_min": 20.61,
     "video_file": "podcast_ep36_20261121_075828.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 37,
+    "topic": "Le Cadran Diplomatique : Naviguer les Zones Grises de la Communication Internationale",
+    "date": "2026-11-22T08:04:11.494994",
+    "duration_sec": 1207.15,
+    "duration_min": 20.12,
+    "video_file": "podcast_ep37_20261122_074550.mp4",
+    "platform": "Facebook, YouTube"
   }
 ]
