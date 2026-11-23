@@ -332,6 +332,15 @@ const PODCAST_HISTORY = [
     "duration_min": 20.12,
     "video_file": "podcast_ep37_20261122_074550.mp4",
     "platform": "Facebook, YouTube"
+  },
+  {
+    "episode": 38,
+    "topic": "L'Art de la Carte Blanche Stratégique : Déléguer l'Autonomie pour Libérer le Potentiel",
+    "date": "2026-11-23T08:54:18.318118",
+    "duration_sec": 1187.33,
+    "duration_min": 19.79,
+    "video_file": "podcast_ep38_20261123_083523.mp4",
+    "platform": "Facebook"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
