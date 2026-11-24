@@ -340,5 +340,14 @@
     "duration_min": 19.79,
     "video_file": "podcast_ep38_20261123_083523.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 39,
+    "topic": "Le Rhétorique de l'Accord : L'Art de Structurer vos Argumentaires pour Convaincre en Français Exécutif",
+    "date": "2026-11-24T10:55:49.633381",
+    "duration_sec": 1183.17,
+    "duration_min": 19.72,
+    "video_file": "podcast_ep39_20261124_104048.mp4",
+    "platform": "Facebook, YouTube"
   }
 ]
