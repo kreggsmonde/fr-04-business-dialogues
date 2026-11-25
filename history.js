@@ -350,6 +350,15 @@ const PODCAST_HISTORY = [
     "duration_min": 19.72,
     "video_file": "podcast_ep39_20261124_104048.mp4",
     "platform": "Facebook, YouTube"
+  },
+  {
+    "episode": 40,
+    "topic": "L'Art de la Concession Tactique : Savoir Céder pour Mieux Avancer en Terrain Concurrentiel",
+    "date": "2026-11-25T09:51:29.414269",
+    "duration_sec": 1182.12,
+    "duration_min": 19.7,
+    "video_file": "podcast_ep40_20261125_093211.mp4",
+    "platform": "Facebook"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
