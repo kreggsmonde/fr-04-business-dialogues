@@ -359,6 +359,15 @@ const PODCAST_HISTORY = [
     "duration_min": 19.7,
     "video_file": "podcast_ep40_20261125_093211.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 41,
+    "topic": "Le Sablier Stratégique : Maîtriser le Temps dans les Négociations Cruciales",
+    "date": "2026-11-26T09:27:47.553014",
+    "duration_sec": 1221.38,
+    "duration_min": 20.36,
+    "video_file": "podcast_ep41_20261126_090941.mp4",
+    "platform": "Facebook, YouTube"
   }
 ];
 if (typeof module !== 'undefined' && module.exports) { module.exports = PODCAST_HISTORY; }
