@@ -367,5 +367,14 @@
     "duration_min": 20.36,
     "video_file": "podcast_ep41_20261126_090941.mp4",
     "platform": "Facebook, YouTube"
+  },
+  {
+    "episode": 42,
+    "topic": "L'Équilibre du Pouvoir : Maîtriser la Dynamique des Relations Hiérarchiques en Français Exécutif",
+    "date": "2026-11-27T09:43:55.180823",
+    "duration_sec": 1175.59,
+    "duration_min": 19.59,
+    "video_file": "podcast_ep42_20261127_092557.mp4",
+    "platform": "Facebook"
   }
 ]
