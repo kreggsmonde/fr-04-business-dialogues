@@ -376,5 +376,14 @@
     "duration_min": 19.59,
     "video_file": "podcast_ep42_20261127_092557.mp4",
     "platform": "Facebook"
+  },
+  {
+    "episode": 43,
+    "topic": "L'Art de la Cartographie des Intérêts : Décoder les Motivations pour des Négociations Gagnant-Gagnant",
+    "date": "2026-11-28T08:58:01.509679",
+    "duration_sec": 1195.15,
+    "duration_min": 19.92,
+    "video_file": "podcast_ep43_20261128_084019.mp4",
+    "platform": "None"
   }
 ]
